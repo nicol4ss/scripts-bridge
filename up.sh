@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "SELECT: co, up, uo, utp, uto, mp, mo"
+echo "SELECT: cc, cp, co, tupp, tupo, tfront, mp, mo"
 read config;
 
-if [ $config = "co" ]; then
+if [ $config = "cc" ]; then
     docker volume prune -f
     docker rm -f pec_postgres_1
     docker rm -f pec_oracle_1
@@ -30,7 +30,7 @@ elif [ $config = "mo" ]; then
     mvn spring-boot:run -Dspring.profiles.active=dev,dev-oracle
     cd ..
     
-elif [ $config = "up" ]; then
+elif [ $config = "cp" ]; then
     docker rm -f pec_postgres_1
     docker rm -f pec_oracle_1
     docker-compose up -d postgres
@@ -42,7 +42,7 @@ elif [ $config = "up" ]; then
     mvn spring-boot:run -Dspring.profiles.active=dev,dev-postgres
     cd ..
 
-elif [ $config = "uo" ]; then 
+elif [ $config = "co" ]; then 
     docker rm -f pec_postgres_1
     docker rm -f pec_oracle_1
     docker-compose up -d postgres
@@ -54,20 +54,20 @@ elif [ $config = "uo" ]; then
     mvn spring-boot:run -Dspring.profiles.active=dev,dev-oracle
     cd ..
 
-elif [ $config = "tp" ]; then
+elif [ $config = "tupp" ]; then
     cd app-bundle/
     mvn spring-boot:run -Dspring.profiles.active=dev,dev-postgres -Dbridge.flags.experimental=true
-    gnome-terminal -x bash -c
-    cd frontend/
-    REACT_APP_TERRITORIO_ENABLED=true yarn start
+    cd ..
     
-elif [ $config = "to" ]; then
+elif [ $config = "tupo" ]; then
     cd app-bundle/
     mvn spring-boot:run -Dspring.profiles.active=dev,dev-oracle -Dbridge.flags.experimental=true
-    gnome-terminal -x bash -c
+    cd ..
+
+elif [ $config = "tfront" ]; then    
     cd frontend/
     REACT_APP_TERRITORIO_ENABLED=true yarn start
+    exit
 else
     echo "Comando invalido"
 fi
-
