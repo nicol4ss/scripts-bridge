@@ -1,13 +1,9 @@
 #!/bin/bash
 
-echo "SELECT: cc, cp, co, tupp, tupo, tfront, mp, mo"
+echo -e  "SELECT ONE: \n cc = compile only, \n cp = compile + postgres \n co = compile + oracle \n tupp = terminmal run postgres, tupo = terminal run oracle \n retfront = reterritorializacao frontend \n visufront = visualizacao territorio frontend \n mp = migracoes postgres \n mo = migracoes oracle"
 read config;
 
 if [ $config = "cc" ]; then
-    docker volume prune -f
-    docker rm -f pec_postgres_1
-    docker rm -f pec_oracle_1
-    docker-compose up -d postgres
     mvn clean install -DskipTests -T5
 
     echo "SCRIPT COMPILER DONE!"
@@ -31,6 +27,7 @@ elif [ $config = "mo" ]; then
     cd ..
     
 elif [ $config = "cp" ]; then
+    docker volume prune -f
     docker rm -f pec_postgres_1
     docker rm -f pec_oracle_1
     docker-compose up -d postgres
@@ -58,16 +55,21 @@ elif [ $config = "tupp" ]; then
     cd app-bundle/
     mvn spring-boot:run -Dspring.profiles.active=dev,dev-postgres -Dbridge.flags.experimental=true
     cd ..
-    
+
 elif [ $config = "tupo" ]; then
     cd app-bundle/
     mvn spring-boot:run -Dspring.profiles.active=dev,dev-oracle -Dbridge.flags.experimental=true
     cd ..
-
-elif [ $config = "tfront" ]; then    
+    
+elif [ $config = "retfront" ]; then  
     cd frontend/
     REACT_APP_TERRITORIO_ENABLED=true yarn start
     exit
+
+elif [ $config = "visufront"]; then
+    cd frontend/
+    REACT_APP_VISUALIZACAO_TERRITORIO_ENABLED=true yarn start
+
 else
     echo "Comando invalido"
 fi
