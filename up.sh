@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo -e  "SELECT ONE: \n cc = compile only, \n cp = compile + postgres \n co = compile + oracle \n tupp = terminmal run postgres \n tupo = terminal run oracle \n retfront = reterritorializacao frontend \n visufront = visualizacao territorio frontend \n mp = migracoes postgres \n mo = migracoes oracle"
+echo -e  "SELECT ONE: \n cc = compile only \n cp = compile + postgres \n co = compile + oracle \n tupp = terminmal run postgres \n tupo = terminal run oracle \n retfront = reterritorializacao frontend \n visufront = visualizacao territorio frontend \n mp = migracoes postgres \n mo = migracoes oracle"
 read config;
 
 if [ $config = "cc" ]; then
@@ -66,10 +66,10 @@ elif [ $config = "retfront" ]; then
     REACT_APP_TERRITORIO_ENABLED=true yarn start
     exit
 
-elif [ $config = "visufront"]; then
+elif [ $config = "visufront" ]; then
     cd frontend/
     REACT_APP_VISUALIZACAO_TERRITORIO_ENABLED=true yarn start
-
+    exit
 else
     echo "Comando invalido"
 fi
