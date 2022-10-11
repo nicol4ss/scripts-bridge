@@ -61,15 +61,11 @@ elif [ $config = "tupo" ]; then
     mvn spring-boot:run -Dspring.profiles.active=dev,dev-oracle -Dbridge.flags.experimental=true
     cd ..
     
-elif [ $config = "retfront" ]; then  
+elif [ $config = "frnt" ]; then  
     cd frontend/
-    REACT_APP_TERRITORIO_ENABLED=true yarn start
+    REACT_APP_EXPERIMENTAL=true yarn start
     exit
-
-elif [ $config = "visufront" ]; then
-    cd frontend/
-    REACT_APP_VISUALIZACAO_TERRITORIO_ENABLED=true yarn start
-    exit
+    
 else
     echo "Comando invalido"
 fi
