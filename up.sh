@@ -64,8 +64,6 @@ elif [ $config = "tupo" ]; then
 elif [ $config = "frnt" ]; then  
     cd frontend/
     REACT_APP_EXPERIMENTAL=true yarn start
-    exit
-    
 else
     echo "Comando invalido"
 fi
